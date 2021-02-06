@@ -12,6 +12,8 @@ import youTubeIcon from "../icons/social/ic_youtube.svg";
 import instagramIcon from "../icons/social/ic_instagram.svg";
 import twitterIcon from "../icons/social/ic_twitter.svg";
 import { Logo } from '../components/Logo.jsx';
+import { NavBar } from '../components/NavBar.jsx';
+import { BrowserRouter as Router, } from 'react-router-dom';
 
 const theme = {
     blue: "#4066A5",
@@ -24,33 +26,72 @@ const theme = {
     instagram: "#C13584",
     twitter: "#1DA1F2",
     youTube: "#FF0000",
+
+    flex: (direction, align, justify) => `
+        display: flex;
+        flex-direction: ${direction};
+        align-items: ${align};
+        justify-content: ${justify};
+    `
 }
 
 
 const FirstPart = Styled.div`
-    width: 45vw;
-    height: 140vh;
+    flex: 0.9;
+    height: auto;
+    border: solid 1px black;
+    display: flex; 
+    flex-direction: column;
+`
+
+
+const SecondPart = Styled.div`
+    flex: 1;
+    height: auto;
     border: solid 1px black;
 `
 
 const Section = Styled.section`
     display: flex; 
+    width: 100%;
     flex-direction: row;
+    height: 153vh;
 `
+
+const NavBarWrapper = Styled.div`
+    flex: 5;
+    border: solid 1px black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+`
+
+
 
 export const App = () => {
     return (
-        <ThemeProvider theme={theme}>
-            <Section>
-                <FirstPart>
+        <Router history={window.history}>
 
-                </FirstPart>
-                <div>
 
-                </div>
-            </Section>
-           
-           {/*  <SocialButton icon={facebookIcon} color="facebook" />
+            <ThemeProvider theme={theme}>
+
+                  <Section>
+               
+                    <FirstPart>
+                        <NavBarWrapper >
+                        <NavBar />
+                        </NavBarWrapper>
+                        <div style={{ flex: 10, border: "solid 1px black" }}>
+
+                        </div>
+                    </FirstPart>
+                    <SecondPart>
+
+                    </SecondPart>
+                </Section>
+
+                {/*  <SocialButton icon={facebookIcon} color="facebook" />
             <SocialButton icon={instagramIcon} color="instagram" />
             <SocialButton icon={youTubeIcon} color="youTube" />
             <SocialButton icon={twitterIcon} color="twitter" />
@@ -64,7 +105,9 @@ export const App = () => {
             <Paragraph>
                 Hello to all
             </Paragraph> */}
-        </ThemeProvider>
+            </ThemeProvider>
+        </Router>
+
     )
 }
 

@@ -10,15 +10,17 @@ const LogoWrapper = Styled.div`
     justify-content: center;
     height: 70px;
     width: 150px;
+    margin: 0;
 
     .logoImage{
         margin-bottom: 15px;
-        margin-right: 10px;
+        margin-right: 13px;
     }
 `
 
 export const Logo = () => {
     return (
+       
         <LogoWrapper>
             <img className={"logoImage"} src={logoImage} alt="Logotype image" />
             <img src={logoText} alt="Logotype text" />
