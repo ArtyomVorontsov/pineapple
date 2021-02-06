@@ -11,8 +11,10 @@ import facebookIcon from "../icons/social/ic_facebook.svg";
 import youTubeIcon from "../icons/social/ic_youtube.svg";
 import instagramIcon from "../icons/social/ic_instagram.svg";
 import twitterIcon from "../icons/social/ic_twitter.svg";
-import { Logo } from '../components/Logo.jsx';
-import { NavBar } from '../components/NavBar.jsx';
+
+import pineappleImage from "../images/image_summer.png"
+
+import { NavBar, MobileNavBar } from '../components/NavBar.jsx';
 import { BrowserRouter as Router, } from 'react-router-dom';
 
 const theme = {
@@ -39,16 +41,27 @@ const theme = {
 const FirstPart = Styled.div`
     flex: 0.9;
     height: auto;
-    border: solid 1px black;
     display: flex; 
     flex-direction: column;
+
+
+    @media only screen and (max-width: 600px) {
+        transform: translate(50%, 50%);
+        position: absolute;
+        background-color: white;
+        width: 80%;
+    }
 `
 
 
 const SecondPart = Styled.div`
     flex: 1;
     height: auto;
-    border: solid 1px black;
+    background-image: url(${props => props.backgroundImage});
+
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
 `
 
 const Section = Styled.section`
@@ -56,55 +69,108 @@ const Section = Styled.section`
     width: 100%;
     flex-direction: row;
     height: 153vh;
+   
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        heigth: auto;
+        ${props => props.theme.flex("column", "center", "center")}
+        background-image: url(${props => props.backgroundImage});
+    }
 `
 
 const NavBarWrapper = Styled.div`
     flex: 5;
-    border: solid 1px black;
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
+
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
+`
+
+const ContentWrapper = Styled.main`
+    ${props => props.theme.flex("column", "center", "flex-start")}
+    flex: 10;
+    width: 100%;
+    @media only screen and (max-width: 600px) {
+        
+    }
 `
 
 
+const InputWrapper = Styled.div`
+    height: 150px; 
+    width: 125%;
+    ${props => props.theme.flex("row", "center", "flex-end")}
+
+    @media only screen and (max-width: 600px) {
+        width: 80%;
+    }
+`
+
+const CheckBoxWrapper = Styled.div`
+    ${props => props.theme.flex("row", "flex-start", "flex-start")}
+    width: 60%;
+    margin-top: 14px;
+    height: 75px; 
+    border-bottom: solid 1px ${props => props.theme.gray} ;
+`
+
+const SocialIconsWrapper = Styled.div`
+    ${props => props.theme.flex("row", "flex-end", "space-around")}
+    height: 100px;
+    width: 40%;
+`
+
+const HeaderWrapper = Styled.div`
+    ${props => props.theme.flex("column", "center", "flex-start")}
+    width: 100%;
+`
 
 export const App = () => {
     return (
         <Router history={window.history}>
-
-
             <ThemeProvider theme={theme}>
-
-                  <Section>
-               
+                <Section  backgroundImage={pineappleImage}>
+                    <MobileNavBar/>
                     <FirstPart>
-                        <NavBarWrapper >
-                        <NavBar />
+                        <NavBarWrapper className={"navBarWrapper"} >
+                            <NavBar />
                         </NavBarWrapper>
-                        <div style={{ flex: 10, border: "solid 1px black" }}>
+                        <ContentWrapper>
+                            <HeaderWrapper >
+                                <Heading textAlign="left" margin="10px" width="60%">
+                                    Subscribe to newsletter
+                                </Heading>
+                                <Paragraph textAlign="left" margin="7px" width="60%">
+                                    Subscribe to our newsletter and get 10%
+                                    discound on pineapple glasses.
+                                </Paragraph>
+                            </HeaderWrapper>
 
-                        </div>
+                            <InputWrapper>
+                                <Input placeholder={"Type your email adress here..."} />
+                            </InputWrapper>
+
+                            <CheckBoxWrapper>
+                                <CheckBox />
+                                <Paragraph style={{ margin: "0 0 0 15px" }}>
+                                    I agree to <LinkStyled> terms of service </LinkStyled>
+                                </Paragraph>
+                            </CheckBoxWrapper>
+                            <SocialIconsWrapper>
+                                <SocialButton icon={facebookIcon} color="facebook" />
+                                <SocialButton icon={instagramIcon} color="instagram" />
+                                <SocialButton icon={youTubeIcon} color="youTube" />
+                                <SocialButton icon={twitterIcon} color="twitter" />
+                            </SocialIconsWrapper>
+                        </ContentWrapper>
                     </FirstPart>
-                    <SecondPart>
-
-                    </SecondPart>
+                    <SecondPart backgroundImage={pineappleImage}/>
                 </Section>
-
-                {/*  <SocialButton icon={facebookIcon} color="facebook" />
-            <SocialButton icon={instagramIcon} color="instagram" />
-            <SocialButton icon={youTubeIcon} color="youTube" />
-            <SocialButton icon={twitterIcon} color="twitter" />
-
-            <Input placeholder={"Type your email adress here..."} />
-            <CheckBox />
-
-            <Heading>
-                Im heading
-            </Heading>
-            <Paragraph>
-                Hello to all
-            </Paragraph> */}
             </ThemeProvider>
         </Router>
 

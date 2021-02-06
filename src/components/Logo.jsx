@@ -9,12 +9,21 @@ const LogoWrapper = Styled.div`
     align-items: center;
     justify-content: center;
     height: 70px;
-    width: 150px;
     margin: 0;
 
     .logoImage{
         margin-bottom: 15px;
         margin-right: 13px;
+    }
+
+    @media only screen and (max-width: 600px) {
+
+        .logoImage{
+            margin: 0;
+
+        }
+        width: 50px;
+       
     }
 `
 
@@ -27,3 +36,14 @@ export const Logo = () => {
         </LogoWrapper>
     )
 }
+
+
+export const LogoMobile = () => {
+    return (
+       
+        <LogoWrapper>
+            <img className={"logoImage"} src={logoImage} alt="Logotype image" />
+        </LogoWrapper>
+    )
+}
+

@@ -1,6 +1,9 @@
 import Styled from "styled-components";
 
 export const Heading = Styled.h1`
+    width: ${props => props.width ? props.width : "auto"};
+    text-align: ${props => props.textAlign ? props.textAlign : "center"};
+    margin: ${props => props.margin ? props.margin : "auto"};
     font-family: Georgia;
     font-size: 32px;
     font-style: normal;
@@ -21,6 +24,9 @@ export const Heading = Styled.h1`
 `
 
 export const Paragraph = Styled.p`
+    width: ${props => props.width ? props.width : "auto"};
+    text-align: ${props => props.textAlign ? props.textAlign : "center"};
+    margin: ${props => props.margin ? props.margin : "auto"};
     color: #6A707B;
     font-family: Arial;
     font-size: 16px;
@@ -42,6 +48,7 @@ export const Paragraph = Styled.p`
 `
 
 export const LinkStyled = Styled.a`
+    text-decoration: underline;
     font-family: Arial;
     font-size: 16px;
     font-style: normal;

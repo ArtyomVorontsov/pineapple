@@ -18,7 +18,7 @@ module.exports = {
             },
 
             {
-                test: /\.(webp|svg)$/i,
+                test: /\.(webp|svg|png)$/i,
                 use: [{
                     loader: "file-loader",
                     options: {

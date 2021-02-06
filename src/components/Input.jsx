@@ -31,11 +31,12 @@ export const StyledButton = Styled.button`
 `
 
 export const InputWithButtonWrapper = Styled.div`
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    width: 663px;
+    width: 78%;
 
     &:focus-within {
         box-shadow: 10px 5px 20px #e3e3e3;
@@ -52,6 +53,8 @@ export const InputWithButtonWrapper = Styled.div`
         }
         box-shadow: 10px 5px 20px #e3e3e3;
     }
+
+   
 
 `
 
