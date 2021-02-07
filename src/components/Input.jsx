@@ -16,7 +16,6 @@ export const StyledInput = Styled.input`
     border-right: none;
     border-left: none;
     outline: none;
-
 `
 
 export const StyledButton = Styled.button`
@@ -54,7 +53,10 @@ export const InputWithButtonWrapper = Styled.div`
         box-shadow: 10px 5px 20px #e3e3e3;
     }
 
-   
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        height: 60px;
+    }
 
 `
 

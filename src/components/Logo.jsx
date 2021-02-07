@@ -23,7 +23,6 @@ const LogoWrapper = Styled.div`
 
         }
         width: 50px;
-       
     }
 `
 

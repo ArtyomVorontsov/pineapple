@@ -16,26 +16,8 @@ import pineappleImage from "../images/image_summer.png"
 
 import { NavBar, MobileNavBar } from '../components/NavBar.jsx';
 import { BrowserRouter as Router, } from 'react-router-dom';
+import {theme} from "../theme.js";
 
-const theme = {
-    blue: "#4066A5",
-    black: "#131821",
-    darkGray: "#6A707B",
-    gray: "#E3E3E4",
-    lightGray: "F2F5FA",
-
-    facebook: "#4267B2",
-    instagram: "#C13584",
-    twitter: "#1DA1F2",
-    youTube: "#FF0000",
-
-    flex: (direction, align, justify) => `
-        display: flex;
-        flex-direction: ${direction};
-        align-items: ${align};
-        justify-content: ${justify};
-    `
-}
 
 
 const FirstPart = Styled.div`
@@ -46,10 +28,10 @@ const FirstPart = Styled.div`
 
 
     @media only screen and (max-width: 600px) {
-        transform: translate(50%, 50%);
-        position: absolute;
-        background-color: white;
-        width: 80%;
+       width: 100%;
+       ${props => props.theme.flex("column", "center", "center")}
+       flex: 1;
+       height: 100%;
     }
 `
 
@@ -72,9 +54,9 @@ const Section = Styled.section`
    
 
     @media only screen and (max-width: 600px) {
+        height: 120vh;
         width: 100%;
-        heigth: auto;
-        ${props => props.theme.flex("column", "center", "center")}
+        ${props => props.theme.flex("column", "center", "flex-start")}
         background-image: url(${props => props.backgroundImage});
     }
 `
@@ -91,12 +73,18 @@ const NavBarWrapper = Styled.div`
     }
 `
 
-const ContentWrapper = Styled.main`
+const ContentWrapper = Styled.div`
     ${props => props.theme.flex("column", "center", "flex-start")}
     flex: 10;
     width: 100%;
+
     @media only screen and (max-width: 600px) {
-        
+        box-sizing: border-box;
+        height: 370px;
+        ${props => props.theme.flex("column", "center", "flex-start")}
+        flex: 0;
+        background-color: white;
+        width: 90%;
     }
 `
 
@@ -107,7 +95,9 @@ const InputWrapper = Styled.div`
     ${props => props.theme.flex("row", "center", "flex-end")}
 
     @media only screen and (max-width: 600px) {
-        width: 80%;
+        width: 90%;
+        height: auto; 
+        ${props => props.theme.flex("row", "center", "center")}
     }
 `
 
@@ -117,17 +107,42 @@ const CheckBoxWrapper = Styled.div`
     margin-top: 14px;
     height: 75px; 
     border-bottom: solid 1px ${props => props.theme.gray} ;
+
+    @media only screen and (max-width: 600px) {
+        width: 90%;
+        ${props => props.theme.flex("row", "center", "flex-start")}
+        height: 60px;
+        margin: 0px;
+    }
 `
 
 const SocialIconsWrapper = Styled.div`
     ${props => props.theme.flex("row", "flex-end", "space-around")}
     height: 100px;
     width: 40%;
+
+    @media only screen and (max-width: 600px) {
+        ${props => props.theme.flex("row", "center", "space-around")}
+        width: 70%;
+        height: 80px;
+    }
 `
 
 const HeaderWrapper = Styled.div`
     ${props => props.theme.flex("column", "center", "flex-start")}
-    width: 100%;
+    width: 90%;
+
+    @media only screen and (max-width: 600px) {
+        ${props => props.theme.flex("column", "flex-start", "center")}
+        width: 90%;
+      
+        p, h1{
+            margin-left: 0;
+            width: 100%;
+        }
+
+        height: 150px;
+    }
 `
 
 export const App = () => {
@@ -140,8 +155,9 @@ export const App = () => {
                         <NavBarWrapper className={"navBarWrapper"} >
                             <NavBar />
                         </NavBarWrapper>
+                  
                         <ContentWrapper>
-                            <HeaderWrapper >
+                            <HeaderWrapper>
                                 <Heading textAlign="left" margin="10px" width="60%">
                                     Subscribe to newsletter
                                 </Heading>
@@ -161,6 +177,7 @@ export const App = () => {
                                     I agree to <LinkStyled> terms of service </LinkStyled>
                                 </Paragraph>
                             </CheckBoxWrapper>
+
                             <SocialIconsWrapper>
                                 <SocialButton icon={facebookIcon} color="facebook" />
                                 <SocialButton icon={instagramIcon} color="instagram" />
