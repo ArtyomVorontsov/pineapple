@@ -4,10 +4,7 @@ import logoImage from "../icons/logo/Union.svg";
 import Styled from "styled-components";
 
 const LogoWrapper = Styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    ${props => props.theme.flex("row", "center", "center")}
     height: 70px;
     margin: 0;
 

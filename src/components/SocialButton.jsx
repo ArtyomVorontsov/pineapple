@@ -2,9 +2,7 @@ import React from 'react'
 import Styled from "styled-components";
 
 const SocialButtonStyled = Styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    ${props => props.theme.flex("row", "center", "center")}
     margin: 0;
     padding: 0;
 

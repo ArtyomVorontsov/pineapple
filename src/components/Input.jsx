@@ -21,20 +21,14 @@ export const StyledInput = Styled.input`
 export const StyledButton = Styled.button`
     flex: 2;
     height: 70px;
-    border: none;
     background-color: white;
     border: solid 2px ${props => props.theme.gray};
-    border-left: none;
-
-    
+    border-left: none;   
 `
 
 export const InputWithButtonWrapper = Styled.div`
     z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
+    ${props => props.theme.flex("row", "center", "center")}
     width: 78%;
 
     &:focus-within {
