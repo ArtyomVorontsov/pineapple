@@ -27,7 +27,7 @@ export const Paragraph = Styled.p`
     width: ${props => props.width ? props.width : "auto"};
     text-align: ${props => props.textAlign ? props.textAlign : "center"};
     margin: ${props => props.margin ? props.margin : "auto"};
-    color: #6A707B;
+    color: ${props => props.color ? props.color : "#6A707B"};
     font-family: Arial;
     font-size: 16px;
     font-style: normal;

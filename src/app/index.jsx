@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "styled-components";
 import Styled from "styled-components";
@@ -13,10 +13,13 @@ import instagramIcon from "../icons/social/ic_instagram.svg";
 import twitterIcon from "../icons/social/ic_twitter.svg";
 
 import pineappleImage from "../images/image_summer.png"
+import successImage from "../icons/ui/success.svg"
 
 import { NavBar } from '../components/NavBar.jsx';
 import { BrowserRouter as Router, } from 'react-router-dom';
 import { theme } from "../theme.js";
+import { Divider } from '../components/Divider.jsx';
+
 
 
 
@@ -34,7 +37,6 @@ const FirstPagePart = Styled.div`
        
     }
 `
-
 
 const SecondPagePart = Styled.div`
     flex: 1;
@@ -79,8 +81,10 @@ const ContentWrapper = Styled.div`
     ${props => props.theme.flex("column", "center", "flex-start")}
     flex: 10;
     width: 100%;
+    box-sizing: border-box;
 
     .mobileWrapper{
+        box-sizing: border-box;
         ${props => props.theme.flex("column", "center", "flex-start")}
         width: 100%;
     }
@@ -88,6 +92,7 @@ const ContentWrapper = Styled.div`
     @media only screen and (max-width: 600px) {
         ${props => props.theme.flex("column", "center", "center")}
         .mobileWrapper{
+            ${props => props.theme.flex("column", "center", "space-around")}
             width: 90%;
             background-color: white;
             height: 370px;
@@ -97,36 +102,38 @@ const ContentWrapper = Styled.div`
 
 
 const InputWrapper = Styled.div`
-    height: 150px; 
+    height: auto; 
+    margin: 40px 0 0px 0;
     width: 125%;
-    ${props => props.theme.flex("row", "center", "flex-end")}
+    ${props => props.theme.flex("column", "flex-end", "center")}
 
     @media only screen and (max-width: 600px) {
+        margin: 0;
         width: 90%;
         height: auto; 
-        ${props => props.theme.flex("row", "center", "center")}
+        ${props => props.theme.flex("column", "center", "center")}
     }
 `
 
 const CheckBoxWrapper = Styled.div`
-    ${props => props.theme.flex("row", "flex-start", "flex-start")}
+    ${props => props.theme.flex("row", "center", "flex-start")}
     width: 60%;
-    margin-top: 14px;
-    height: 75px; 
-    border-bottom: solid 1px ${props => props.theme.gray} ;
+    height: auto; 
 
     @media only screen and (max-width: 600px) {
+        height: 75px; 
         width: 90%;
         ${props => props.theme.flex("row", "center", "flex-start")}
-        height: 60px;
+        height: 70px;
         margin: 0px;
     }
 `
 
 const SocialIconsWrapper = Styled.div`
     ${props => props.theme.flex("row", "flex-end", "space-around")}
-    height: 100px;
+  
     width: 40%;
+    height: auto;
 
     @media only screen and (max-width: 600px) {
         ${props => props.theme.flex("row", "center", "space-around")}
@@ -138,21 +145,63 @@ const SocialIconsWrapper = Styled.div`
 const HeaderWrapper = Styled.div`
     ${props => props.theme.flex("column", "center", "flex-start")}
     width: 90%;
+    box-sizing: border-box;
+
+    
 
     @media only screen and (max-width: 600px) {
         ${props => props.theme.flex("column", "flex-start", "center")}
         width: 90%;
       
-        p, h1{
+        p{
             margin: 0 0px 0px 7px;
             width: 100%;
         }
 
-        height: 150px;
+        h1{
+            margin: 0 0px 10px 7px;
+            width: 100%;
+        }
+
+        min-height: 140px;
     }
 `
 
+
 export const App = () => {
+
+    const [passed, setPassed] = useState(false);
+
+    const [inputValue, setInputValue] = useState("");
+    const [isCheckBoxMarked, setIsCheckBoxMarked] = useState(false);
+    const [error, setError] = useState(null);
+
+    const sendValue = () => {
+
+        if (!inputValue.trim().length)
+            return setError("Email address is required");
+
+        if (!isCheckBoxMarked)
+            return setError("You must accept the terms and conditions");
+
+        const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+
+        if (!inputValue.match(emailRegExp))
+            return setError("Please provide a valid e-mail address");
+
+        const splittedEmail = inputValue.split(".")
+        const domenName = splittedEmail[splittedEmail.length - 1];
+
+        if (domenName.trim().toLowerCase() === "co")
+            return setError("We are not accepting subscriptions from Colombia emails");
+
+        setError(null);
+        console.log("email sended!");
+        setPassed(true);
+    }
+
+
     return (
         <Router history={window.history}>
             <ThemeProvider theme={theme}>
@@ -165,25 +214,48 @@ export const App = () => {
                         <ContentWrapper>
                             <div className={"mobileWrapper"}>
                                 <HeaderWrapper>
-                                    <Heading textAlign="left" margin="10px" width="60%">
-                                        Subscribe to newsletter
-                                    </Heading>
-                                    <Paragraph textAlign="left" margin="7px" width="60%">
-                                        Subscribe to our newsletter and get 10%
-                                        discound on pineapple glasses.
-                                    </Paragraph>
+                                    {passed ?
+                                        <>
+                                            <div style={{ display: "block", width: "60%", margin: "20px 0 20px 0" }}>
+                                                <img style={{ display: "block" }} src={successImage} alt="" />
+                                            </div>
+
+                                            <Heading textAlign="left" margin="10px" width="60%">
+                                                Thanks for subscribing!
+                                            </Heading>
+                                            <Paragraph textAlign="left" margin="7px" width="60%">
+                                                You have successfully subscribed to our email listing. Check your email for the discount code.
+                                            </Paragraph>
+
+                                        </>
+                                        :
+                                        <>
+                                            <Heading textAlign="left" margin="10px" width="60%">
+                                                Subscribe to newsletter
+                                            </Heading>
+                                            <Paragraph textAlign="left" margin="7px" width="60%">
+                                                Subscribe to our newsletter and get 10%
+                                                discound on pineapple glasses.
+                                            </Paragraph>
+                                        </>}
                                 </HeaderWrapper>
 
-                                <InputWrapper>
-                                    <Input placeholder={"Type your email adress here..."} />
-                                </InputWrapper>
+                                {passed ? null :
+                                    <>
+                                        <InputWrapper>
+                                            <Input error={error} onSubmit={sendValue} onChange={e => setInputValue(e.target.value)} value={inputValue} placeholder={"Type your email adress here..."} />
+                                        </InputWrapper>
 
-                                <CheckBoxWrapper>
-                                    <CheckBox />
-                                    <Paragraph style={{ margin: "0 0 0 15px" }}>
-                                        I agree to <LinkStyled> terms of service </LinkStyled>
-                                    </Paragraph>
-                                </CheckBoxWrapper>
+
+                                        <CheckBoxWrapper>
+                                            <CheckBox value={isCheckBoxMarked} onChange={() => setIsCheckBoxMarked(isCheckBoxMarked ? false : true)} />
+                                            <Paragraph style={{ margin: "0 0 0 15px" }}>
+                                                I agree to <LinkStyled> terms of service </LinkStyled>
+                                            </Paragraph>
+                                        </CheckBoxWrapper>
+                                    </>}
+
+                                <Divider width={60} />
 
                                 <SocialIconsWrapper>
                                     <SocialButton icon={facebookIcon} color="facebook" />

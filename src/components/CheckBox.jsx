@@ -29,11 +29,11 @@ const CheckBoxWrapper = Styled.label`
 
 
 
-export const CheckBox = ({onChange}) => {
+export const CheckBox = ({onChange, value}) => {
 
     return (
         <CheckBoxWrapper>
-            <input onChange={onChange} type="checkbox" />
+            <input value={value} onChange={onChange} type="checkbox" />
             <CheckBoxStyled>
                 <img draggable={false} src={checkMark} alt="" />
             </CheckBoxStyled>
