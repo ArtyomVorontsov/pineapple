@@ -19,6 +19,7 @@ import { NavBar } from '../components/NavBar.jsx';
 import { BrowserRouter as Router, } from 'react-router-dom';
 import { theme } from "../theme.js";
 import { Divider } from '../components/Divider.jsx';
+import { formValidator } from '../utils/formValidator.js';
 
 
 
@@ -178,27 +179,13 @@ export const App = () => {
 
     const sendValue = () => {
 
-        if (!inputValue.trim().length)
-            return setError("Email address is required");
+        const newError = formValidator(inputValue, isCheckBoxMarked);
+        setError(newError);
+        if (newError) return
 
-        if (!isCheckBoxMarked)
-            return setError("You must accept the terms and conditions");
-
-        const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-
-
-        if (!inputValue.match(emailRegExp))
-            return setError("Please provide a valid e-mail address");
-
-        const splittedEmail = inputValue.split(".")
-        const domenName = splittedEmail[splittedEmail.length - 1];
-
-        if (domenName.trim().toLowerCase() === "co")
-            return setError("We are not accepting subscriptions from Colombia emails");
-
-        setError(null);
         console.log("email sended!");
         setPassed(true);
+
     }
 
 
