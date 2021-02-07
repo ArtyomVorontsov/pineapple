@@ -57,11 +57,13 @@ export const LinkStyled = Styled.a`
     letter-spacing: 0em;
     text-align: left;
 
-    &hover: {
+    cursor: pointer;
+
+    &:hover {
         color: #4066A5;
     }
 
-    &active{
+    &: active{
         color: #233759;
     }
 

@@ -19,8 +19,11 @@ const LogoWrapper = Styled.div`
     @media only screen and (max-width: 600px) {
 
         .logoImage{
-            margin: 0;
+            margin: 0 0 5px 6px;
+        }
 
+        .logoText{
+            display: none;
         }
         width: 50px;
     }
@@ -31,7 +34,7 @@ export const Logo = () => {
        
         <LogoWrapper>
             <img className={"logoImage"} src={logoImage} alt="Logotype image" />
-            <img src={logoText} alt="Logotype text" />
+            <img className={"logoText"} src={logoText} alt="Logotype text" />
         </LogoWrapper>
     )
 }

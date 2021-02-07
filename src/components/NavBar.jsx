@@ -29,18 +29,10 @@ const NavStyled = Styled.div`
     width: 100%;
 
     @media only screen and (max-width: 600px) {
-        display: none;
-    }
-`
-
-const NavStyledMobile = Styled.div`
-    display: none;
-    @media only screen and (max-width: 600px) {
-        flex: 0.02;
+        
         ${props => props.theme.flex("row", "center", "center")}
+        height: 100%;
         width: 100%;
-        position: sticky;
-        top: 0px;
         z-index: 20;
         background-color: white;
     }
@@ -55,43 +47,7 @@ const LogoWrapper = Styled.div`
     @media only screen and (max-width: 600px) {
         ${props => props.theme.flex("row", "center", "flex-start")}
     }
-`
-
-export const MobileNavBar = () => {
-    return (
-        <NavStyledMobile>
-            <LogoWrapper>
-                <LogoMobile />
-            </LogoWrapper>
-
-            <NavBarUL>
-                <NavBarLI>
-                    <NavLink to="#">
-                        <Paragraph>
-                            About
-                        </Paragraph>
-
-                    </NavLink>
-                </NavBarLI>
-                <NavBarLI>
-                    <NavLink to="#">
-                        <Paragraph>
-                            How it works
-                        </Paragraph>
-
-                    </NavLink>
-                </NavBarLI>
-                <NavBarLI>
-                    <NavLink to="#">
-                        <Paragraph>
-                            Contact
-                        </Paragraph>
-                    </NavLink>
-                </NavBarLI>
-            </NavBarUL>
-        </NavStyledMobile>
-    )
-}
+` 
 
 
 export const NavBar = () => {

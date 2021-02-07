@@ -7,9 +7,8 @@ const CheckBoxStyled = Styled.div`
     height: 26px;
     border: solid 1px ${props => props.theme.gray};
     border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    ${props => props.theme.flex("row", "center", "center")}
 
     img{
         user-select: none;
@@ -20,7 +19,7 @@ const CheckBoxStyled = Styled.div`
 const CheckBoxWrapper = Styled.label`
     input:checked + div{
         background-color: ${ props => props.theme.blue};
-        border: none;
+        border: solid 1px ${ props => props.theme.blue};
     }
 
     input{

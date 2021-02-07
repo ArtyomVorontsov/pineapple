@@ -14,13 +14,13 @@ import twitterIcon from "../icons/social/ic_twitter.svg";
 
 import pineappleImage from "../images/image_summer.png"
 
-import { NavBar, MobileNavBar } from '../components/NavBar.jsx';
+import { NavBar } from '../components/NavBar.jsx';
 import { BrowserRouter as Router, } from 'react-router-dom';
-import {theme} from "../theme.js";
+import { theme } from "../theme.js";
 
 
 
-const FirstPart = Styled.div`
+const FirstPagePart = Styled.div`
     flex: 0.9;
     height: auto;
     display: flex; 
@@ -28,20 +28,21 @@ const FirstPart = Styled.div`
 
 
     @media only screen and (max-width: 600px) {
-       width: 100%;
+        width: 100%;
+        height: 100vh;
        ${props => props.theme.flex("column", "center", "center")}
-       flex: 1;
-       height: 100%;
+       
     }
 `
 
 
-const SecondPart = Styled.div`
+const SecondPagePart = Styled.div`
     flex: 1;
     height: auto;
     background-image: url(${props => props.backgroundImage});
 
     @media only screen and (max-width: 600px) {
+        flex: 0;
         display: none;
     }
 `
@@ -51,10 +52,11 @@ const Section = Styled.section`
     width: 100%;
     flex-direction: row;
     height: 153vh;
+    overflow: hidden;
    
 
     @media only screen and (max-width: 600px) {
-        height: 120vh;
+        height: 100vh;
         width: 100%;
         ${props => props.theme.flex("column", "center", "flex-start")}
         background-image: url(${props => props.backgroundImage});
@@ -69,7 +71,7 @@ const NavBarWrapper = Styled.div`
     width: 100%;
 
     @media only screen and (max-width: 600px) {
-        display: none;
+        flex: 1;
     }
 `
 
@@ -78,13 +80,18 @@ const ContentWrapper = Styled.div`
     flex: 10;
     width: 100%;
 
-    @media only screen and (max-width: 600px) {
-        box-sizing: border-box;
-        height: 370px;
+    .mobileWrapper{
         ${props => props.theme.flex("column", "center", "flex-start")}
-        flex: 0;
-        background-color: white;
-        width: 90%;
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 600px) {
+        ${props => props.theme.flex("column", "center", "center")}
+        .mobileWrapper{
+            width: 90%;
+            background-color: white;
+            height: 370px;
+        }
     }
 `
 
@@ -137,7 +144,7 @@ const HeaderWrapper = Styled.div`
         width: 90%;
       
         p, h1{
-            margin-left: 0;
+            margin: 0 0px 0px 7px;
             width: 100%;
         }
 
@@ -149,44 +156,45 @@ export const App = () => {
     return (
         <Router history={window.history}>
             <ThemeProvider theme={theme}>
-                <Section  backgroundImage={pineappleImage}>
-                    <MobileNavBar/>
-                    <FirstPart>
+                <Section backgroundImage={pineappleImage}>
+                    <FirstPagePart>
                         <NavBarWrapper className={"navBarWrapper"} >
                             <NavBar />
                         </NavBarWrapper>
-                  
+
                         <ContentWrapper>
-                            <HeaderWrapper>
-                                <Heading textAlign="left" margin="10px" width="60%">
-                                    Subscribe to newsletter
-                                </Heading>
-                                <Paragraph textAlign="left" margin="7px" width="60%">
-                                    Subscribe to our newsletter and get 10%
-                                    discound on pineapple glasses.
-                                </Paragraph>
-                            </HeaderWrapper>
+                            <div className={"mobileWrapper"}>
+                                <HeaderWrapper>
+                                    <Heading textAlign="left" margin="10px" width="60%">
+                                        Subscribe to newsletter
+                                    </Heading>
+                                    <Paragraph textAlign="left" margin="7px" width="60%">
+                                        Subscribe to our newsletter and get 10%
+                                        discound on pineapple glasses.
+                                    </Paragraph>
+                                </HeaderWrapper>
 
-                            <InputWrapper>
-                                <Input placeholder={"Type your email adress here..."} />
-                            </InputWrapper>
+                                <InputWrapper>
+                                    <Input placeholder={"Type your email adress here..."} />
+                                </InputWrapper>
 
-                            <CheckBoxWrapper>
-                                <CheckBox />
-                                <Paragraph style={{ margin: "0 0 0 15px" }}>
-                                    I agree to <LinkStyled> terms of service </LinkStyled>
-                                </Paragraph>
-                            </CheckBoxWrapper>
+                                <CheckBoxWrapper>
+                                    <CheckBox />
+                                    <Paragraph style={{ margin: "0 0 0 15px" }}>
+                                        I agree to <LinkStyled> terms of service </LinkStyled>
+                                    </Paragraph>
+                                </CheckBoxWrapper>
 
-                            <SocialIconsWrapper>
-                                <SocialButton icon={facebookIcon} color="facebook" />
-                                <SocialButton icon={instagramIcon} color="instagram" />
-                                <SocialButton icon={youTubeIcon} color="youTube" />
-                                <SocialButton icon={twitterIcon} color="twitter" />
-                            </SocialIconsWrapper>
+                                <SocialIconsWrapper>
+                                    <SocialButton icon={facebookIcon} color="facebook" />
+                                    <SocialButton icon={instagramIcon} color="instagram" />
+                                    <SocialButton icon={youTubeIcon} color="youTube" />
+                                    <SocialButton icon={twitterIcon} color="twitter" />
+                                </SocialIconsWrapper>
+                            </div>
                         </ContentWrapper>
-                    </FirstPart>
-                    <SecondPart backgroundImage={pineappleImage}/>
+                    </FirstPagePart>
+                    <SecondPagePart backgroundImage={pineappleImage} />
                 </Section>
             </ThemeProvider>
         </Router>
