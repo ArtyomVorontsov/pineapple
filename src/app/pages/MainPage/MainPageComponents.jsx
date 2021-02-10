@@ -20,6 +20,8 @@ export const SecondPagePart = Styled.div`
 flex: 1;
 height: auto;
 background-image: url(${props => props.backgroundImage});
+background-repeat: no-repeat;
+background-size: cover;
 
 @media only screen and (max-width: 600px) {
     flex: 0;

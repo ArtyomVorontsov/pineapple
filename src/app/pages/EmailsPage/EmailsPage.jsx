@@ -23,6 +23,11 @@ export const EmailsPage = () => {
         setDeletedEntity(result);
     }
 
+    const setEmailProviderFilter = (emailProvider) => {
+        setEmailProvider(emailProvider);
+        setPage(1);
+    }
+
     useEffect(async () => {
         const emailsFromDB = await API.getEmails(orderByColumn, order, emailProvider, page);
         setEmails(emailsFromDB);
@@ -33,7 +38,7 @@ export const EmailsPage = () => {
         setEmailProviders(emailProvidersFromDb);
     }, [])
 
-    
+
 
     console.log("rerender");
 
@@ -54,7 +59,11 @@ export const EmailsPage = () => {
                 <button onClick={() => setEmailProvider(null)} >No filter by provider</button>
                 {
                     emailProviders.map((emailProvider) => {
-                        return <button key={emailProvider.emailProvider} onClick={() => setEmailProvider(emailProvider.emailProvider)} >{emailProvider.emailProvider}</button>
+                        return (
+                            <button key={emailProvider.emailProvider} onClick={() => setEmailProviderFilter(emailProvider.emailProvider)}>
+                                {emailProvider.emailProvider}
+                            </button>
+                        )
                     })
                 }
             </Paginator>
@@ -66,7 +75,7 @@ export const EmailsPage = () => {
                         <ThStyled isSelected={orderByColumn === "id"} onClick={() => setOrderByColumn("id")}>id</ThStyled>
                         <ThStyled isSelected={orderByColumn === "emailProvider"} onClick={() => setOrderByColumn("emailProvider")}>Provider</ThStyled>
                         <ThStyled isSelected={orderByColumn === "createdAt"} onClick={() => setOrderByColumn("createdAt")}>CreatedAt</ThStyled>
-                        <ThStyled/>
+                        <ThStyled />
                     </tr>
                 </thead>
 
