@@ -44,7 +44,7 @@ export const EmailsPage = () => {
 
     return (
         <main>
-
+            <a href={emails} download>download</a>
             <Paginator direction={"column"}>
                 <p>Page: {page}</p>
                 <div>

@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 
-
-
 import { Input } from "../../../components/Input.jsx"
 import { CheckBox } from '../../../components/CheckBox.jsx';
 import { SocialButton } from '../../../components/SocialButton.jsx';
@@ -31,15 +29,37 @@ export const MainPage = () => {
     const [isCheckBoxMarked, setIsCheckBoxMarked] = useState(false);
     const [error, setError] = useState(null);
 
+    const [wasFormSubmitted, setWasFormSubmitted] = useState(false);
+
+    const validateInputForm = (value = inputValue, 
+        checkBoxValue = isCheckBoxMarked, 
+        wasSubmited = wasFormSubmitted) => {
+        let newError = null;
+        if(wasSubmited){
+            newError = formValidator(value, checkBoxValue);
+            setError(newError);
+        }
+        return newError;
+    }
+
     const sendValue = async () => {
-
-        const newError = formValidator(inputValue, isCheckBoxMarked);
-        setError(newError);
+        setWasFormSubmitted(true);
+        const newError = validateInputForm(inputValue, isCheckBoxMarked, true);
         if (newError) return
-
-        API.addEmail(inputValue).then(()=>{
+        API.addEmail(inputValue).then(() => {
             setPassed(true);
         });
+    }
+
+  
+    const onInputChange = (e) => {
+        setInputValue(e.target.value);
+        validateInputForm(e.target.value);
+    }
+
+    const onCheckBoxChange = () => {
+        setIsCheckBoxMarked(isCheckBoxMarked ? false : true);
+        validateInputForm(inputValue, isCheckBoxMarked ? false : true );
     }
 
     return (
@@ -71,22 +91,28 @@ export const MainPage = () => {
                                 <>
                                     <Heading textAlign="left" margin="10px" width="60%">
                                         Subscribe to newsletter
-                                            </Heading>
+                                    </Heading>
                                     <Paragraph textAlign="left" margin="7px" width="60%">
                                         Subscribe to our newsletter and get 10%
                                         discound on pineapple glasses.
-                                            </Paragraph>
+                                    </Paragraph>
                                 </>}
                         </HeaderWrapper>
 
                         {passed ? null :
                             <>
                                 <InputWrapper>
-                                    <Input error={error} onSubmit={sendValue} onChange={e => setInputValue(e.target.value)} value={inputValue} placeholder={"Type your email adress here..."} />
+                                    <Input error={error}
+                                        onSubmit={sendValue}
+                                        onChange={onInputChange}
+                                        value={inputValue}
+                                        placeholder={"Type your email adress here..."} />
                                 </InputWrapper>
 
                                 <CheckBoxWrapper>
-                                    <CheckBox value={isCheckBoxMarked} onChange={() => setIsCheckBoxMarked(isCheckBoxMarked ? false : true)} />
+                                    <CheckBox
+                                        value={isCheckBoxMarked}
+                                        onChange={onCheckBoxChange} />
                                     <Paragraph style={{ margin: "0 0 0 15px" }}>
                                         I agree to <LinkStyled> terms of service </LinkStyled>
                                     </Paragraph>
