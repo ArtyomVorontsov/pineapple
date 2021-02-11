@@ -17,6 +17,8 @@ export const EmailsPage = () => {
 
     const [deletedEntity, setDeletedEntity] = useState(null);
 
+    const [selectedEmails, setSelectedEmails] = useState([]);
+
     const deleteEmail = async (id) => {
         const result = await API.deleteEmail(id);
         console.log(result);
@@ -26,6 +28,23 @@ export const EmailsPage = () => {
     const setEmailProviderFilter = (emailProvider) => {
         setEmailProvider(emailProvider);
         setPage(1);
+    }
+
+    const getEmailsCSV = () => {
+        API.getEmailsCSV(selectedEmails);
+    }
+
+    const setEmailToCSVArray = (e, emailId) => {
+        emailId = Number(emailId);
+        let newSelectedEmails = [];
+        if (e.target.checked) {
+            newSelectedEmails = [emailId, ...selectedEmails];
+        } else {
+            newSelectedEmails = selectedEmails.filter((id) => {
+                if (id !== emailId) return id
+            })
+        }
+        setSelectedEmails(newSelectedEmails);
     }
 
     useEffect(async () => {
@@ -39,12 +58,8 @@ export const EmailsPage = () => {
     }, [])
 
 
-
-    console.log("rerender");
-
     return (
         <main>
-            <a href={emails} download>download</a>
             <Paginator direction={"column"}>
                 <p>Page: {page}</p>
                 <div>
@@ -53,7 +68,7 @@ export const EmailsPage = () => {
                 </div>
                 <button onClick={() => setOrder(order === "DESC" ? "ASC" : "DESC")}>Order: {order}</button>
             </Paginator>
-
+            <button disabled={selectedEmails.length === 0} onClick={getEmailsCSV}>Download CSV</button>
 
             <Paginator direction={"row"}>
                 <button onClick={() => setEmailProvider(null)} >No filter by provider</button>
@@ -76,6 +91,7 @@ export const EmailsPage = () => {
                         <ThStyled isSelected={orderByColumn === "emailProvider"} onClick={() => setOrderByColumn("emailProvider")}>Provider</ThStyled>
                         <ThStyled isSelected={orderByColumn === "createdAt"} onClick={() => setOrderByColumn("createdAt")}>CreatedAt</ThStyled>
                         <ThStyled />
+                        <ThStyled />
                     </tr>
                 </thead>
 
@@ -89,12 +105,20 @@ export const EmailsPage = () => {
                                     <TdStyled width={300}>{email.emailProvider}</TdStyled>
                                     <TdStyled>{email.createdAt}</TdStyled>
                                     <TdStyled width={50}><button onClick={() => deleteEmail(email.id)}>Delete</button></TdStyled>
+
+                                    <TdStyled width={20}>
+                                        <input checked={selectedEmails.includes(Number(email.id))}
+                                            onChange={(e) => setEmailToCSVArray(e, email.id)}
+                                            type="checkbox"
+                                            id={email.id} />
+                                    </TdStyled>
                                 </tr>
                             )
                         })
                     }
                 </tbody>
             </TableStyled>
+
         </main>
     )
 }
