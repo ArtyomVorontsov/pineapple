@@ -1,7 +1,7 @@
 # Pineapple frontend
 Web developer test assignment.
 
-##Description
+## Description
 
 This is web beveloper test assignment.
 
@@ -13,7 +13,7 @@ In assignment we have 3 parts:
 
 This repo contains frontend/client side HTML5, CSS3 and Javascript part of the task.
 
-##Used tehnologies.
+## Used tehnologies.
 
 Application:
 - React 
@@ -28,7 +28,7 @@ Bundlers & Transpilers:
 Application based on custom configured webpack without CRA.
 
 
-##Installation.
+## Installation.
 
 You should have node.js installed on your machine.
 Clone repo to your machine, and run **npm install** in terminal. 
