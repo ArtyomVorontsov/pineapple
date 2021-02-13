@@ -37,12 +37,3 @@ export const Logo = () => {
 }
 
 
-export const LogoMobile = () => {
-    return (
-       
-        <LogoWrapper>
-            <img className={"logoImage"} src={logoImage} alt="Logotype image" />
-        </LogoWrapper>
-    )
-}
-

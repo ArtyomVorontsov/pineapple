@@ -1,7 +1,7 @@
 import React from 'react'
 import Styled from "styled-components";
-import { Logo, LogoMobile } from './Logo';
-import { Link, NavLink } from 'react-router-dom';
+import { Logo } from './Logo';
+import { NavLink } from 'react-router-dom';
 import { Paragraph } from './Text';
 
 const NavBarUL = Styled.ul`

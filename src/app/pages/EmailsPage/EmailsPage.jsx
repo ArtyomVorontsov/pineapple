@@ -16,7 +16,6 @@ export const EmailsPage = () => {
     const [page, setPage] = useState(1);
 
     const [deletedEntity, setDeletedEntity] = useState(null);
-
     const [selectedEmails, setSelectedEmails] = useState([]);
 
     const deleteEmail = async (id) => {
