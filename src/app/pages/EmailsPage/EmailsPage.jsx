@@ -10,7 +10,7 @@ export const EmailsPage = () => {
     const [emails, setEmails] = useState([]);
     const [emailProviders, setEmailProviders] = useState([]);
 
-    const [orderByColumn, setOrderByColumn] = useState("id");
+    const [orderByColumn, setOrderByColumn] = useState("createdAt");
     const [order, setOrder] = useState("ASC");
     const [emailProvider, setEmailProvider] = useState(null);
     const [page, setPage] = useState(1);
